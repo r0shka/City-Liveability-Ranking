@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/medium_padding"
+    android:layout_marginTop="@dimen/medium_padding"
+    android:layout_marginEnd="@dimen/medium_padding"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/city_list_item_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="#59000000"
+            app:layout_anchor="@id/city_list_item_image"
+            app:layout_anchorGravity="center" />
+
+        <TextView
+            android:id="@+id/city_list_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_anchor="@id/city_list_item_image"
+            app:layout_anchorGravity="center"
+            tools:text="City name" />
+
+
+        <TextView
+            android:id="@+id/city_list_item_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top|end"
+            android:background="@drawable/ic_rounded"
+            android:text="22"
+            android:paddingEnd="8dp"
+            android:paddingTop="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_anchor="@id/city_list_item_image"
+            app:layout_anchorGravity="top|end" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/city_list_item_country"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:clickable="false"
+            android:text="Austria"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="#00FFFFFF"
+            app:chipIcon="@drawable/ic_location_white_24dp"
+            app:chipIconVisible="true"
+            app:layout_anchor="@id/city_list_item_image"
+            app:layout_anchorGravity="bottom|start" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/city_list_item_population"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:clickable="false"
+            android:text="8,345,340"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="#00FFFFFF"
+            app:chipIcon="@drawable/ic_people_white_24dp"
+            app:chipIconVisible="true"
+            app:layout_anchor="@id/city_list_item_image"
+            app:layout_anchorGravity="bottom|end" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
