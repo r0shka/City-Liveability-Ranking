@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/pageMarginAndOffset"
-    android:layout_marginTop="@dimen/medium_padding"
+    android:layout_marginStart="@dimen/wide_padding"
+    android:layout_marginTop="@dimen/wide_padding"
     android:layout_marginEnd="48dp"
-    android:layout_marginBottom="@dimen/medium_padding"
+    android:layout_marginBottom="@dimen/wide_padding"
     app:cardCornerRadius="16dp"
     app:cardElevation="8dp">
 
@@ -33,7 +33,7 @@
             android:id="@+id/city_viewpager_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/medium_padding"
+            android:padding="@dimen/wide_padding"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"

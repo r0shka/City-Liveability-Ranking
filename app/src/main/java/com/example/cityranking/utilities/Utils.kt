@@ -29,12 +29,17 @@ object Utils {
 
     /**
      * Creates a firebase reference of the image to download
+     * Original size is stored is root, other sizes in thumbnails/
      * @param id city id, matches the name of the picture
      * @return Firebase Storage Reference
      */
     fun getImageRef(id: String?, size: String): StorageReference {
         val storageReference = Firebase.storage.reference
-        return storageReference.child("thumbnails/$id$size")
+        return when(size) {
+            IMAGE_SIZE_ORIGINAL -> storageReference.child("$id$size")
+            else -> storageReference.child("thumbnails/$id$size")
+        }
+
     }
 
     /**

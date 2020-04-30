@@ -10,7 +10,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.cityranking.R
 import com.example.cityranking.SharedViewModel
+import com.example.cityranking.config.GlideApp
 import com.example.cityranking.databinding.FragmentCityDetailsBinding
+import com.example.cityranking.utilities.IMAGE_SIZE_MEDIUM
+import com.example.cityranking.utilities.IMAGE_SIZE_ORIGINAL
+import com.example.cityranking.utilities.IMAGE_SIZE_SMALL
+import com.example.cityranking.utilities.Utils
 
 
 class CityDetailsFragment : Fragment() {
@@ -31,8 +36,12 @@ class CityDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val city = sharedViewModel.getCity()
-        binding.title.text = "${city?.name},${city?.mercer?.get("2019")}"
+        val city = sharedViewModel.getCity()!!
+        binding.cityDetailsName.text = "${city.name}, ${city.country}"
+        binding.cityDetailsRank.text = "${city.mercer?.get("2019")}"
+        GlideApp.with(this)
+            .load(Utils.getImageRef(city.id, IMAGE_SIZE_MEDIUM))
+            .into(binding.cityDetailsThumbnail)
     }
 
     override fun onDestroyView() {
