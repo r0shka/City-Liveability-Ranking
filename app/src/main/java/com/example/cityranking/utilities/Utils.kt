@@ -1,6 +1,10 @@
 package com.example.cityranking.utilities
 
+import android.content.Context
+import androidx.viewpager2.widget.ViewPager2
+import com.example.cityranking.R
 import com.example.cityranking.data.City
+import com.example.cityranking.mainscreen.ViewPagerPageTransformation
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -55,5 +59,23 @@ object Utils {
             cities.add(item)
         }
         return cities
+    }
+
+    /**
+     * Attaches transition zoom in/out animation to a viewpager
+     * @param viewPager2
+     */
+    public fun setupViewPagerAnimation(viewPager2: ViewPager2, context: Context) {
+        viewPager2.clipToPadding = false
+        viewPager2.clipChildren = false
+        viewPager2.offscreenPageLimit = 3
+
+        val pageMarginPx = context.resources.getDimensionPixelOffset(R.dimen.pageMargin)
+        val offsetPx = context.resources.getDimensionPixelOffset(R.dimen.offset)
+        viewPager2.setPageTransformer(
+            ViewPagerPageTransformation(
+                offsetPx + pageMarginPx
+            )
+        )
     }
 }
