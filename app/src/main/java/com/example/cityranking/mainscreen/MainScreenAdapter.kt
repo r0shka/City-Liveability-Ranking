@@ -19,7 +19,7 @@ class MainScreenAdapter(
 ) :
     RecyclerView.Adapter<MainScreenAdapter.ViewHolder>() {
 
-    var data = arrayListOf<MainScreenSection>()
+    var data = ArrayList<MainScreenSection>(6)
         set(value) {
             field = value
             // as the data won't be changing, no DiffUtil implementation

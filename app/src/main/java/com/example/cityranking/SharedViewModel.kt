@@ -7,6 +7,7 @@ import com.example.cityranking.data.City
 import com.example.cityranking.data.FirestoreRepository
 import com.example.cityranking.data.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 
 class SharedViewModel(private val handle: SavedStateHandle) : ViewModel() {
 

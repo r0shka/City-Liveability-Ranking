@@ -21,7 +21,6 @@ class MainFragment : Fragment() {
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private var toast: Toast? = null
-    private val mainScreenSections = arrayListOf<MainScreenSection>()
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +35,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainScreenSections.clear()
         setMainScreenSections()
     }
 
@@ -47,7 +45,7 @@ class MainFragment : Fragment() {
         sharedViewModel.getMercerTop5Cities.observe(viewLifecycleOwner, Observer {
             createSegment(
                 "Mercer",
-                "Mercer's top 5 cities",
+                "Mercer's Quality of living city ranking",
                 MERCER_LIST,
                 it,
                 adapter
@@ -56,7 +54,7 @@ class MainFragment : Fragment() {
         sharedViewModel.getEconomistTop5Cities.observe(viewLifecycleOwner, Observer {
             createSegment(
                 "The Economist",
-                "The Economist's top 5 cities",
+                "The Economist's Global Liveability Index",
                 ECONOMIST_LIST,
                 it,
                 adapter
@@ -65,7 +63,7 @@ class MainFragment : Fragment() {
         sharedViewModel.getMonocleTop5Cities.observe(viewLifecycleOwner, Observer {
             createSegment(
                 "Monocle",
-                "Monocle top 5 cities",
+                "Monocle: Quality of life survey",
                 MONOCLE_LIST,
                 it,
                 adapter
@@ -86,7 +84,7 @@ class MainFragment : Fragment() {
                 showToast("Loading...")
             }
             is Resource.Success<*> -> {
-                mainScreenSections.add(
+                adapter.data.add(
                     MainScreenSection(
                         title,
                         description,
@@ -94,7 +92,7 @@ class MainFragment : Fragment() {
                         carouselItems = resource.data as ArrayList<City>
                     )
                 )
-                adapter.data = mainScreenSections
+                adapter.notifyDataSetChanged()
             }
             is Resource.Failure<*> -> {
                 showToast("An error has ocurred:${resource.throwable.message}")
@@ -119,6 +117,16 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    /**
+     * Display main screen sections in particular order
+     */
+    private fun getSectionPosition(dataSource: String): Int = when (dataSource) {
+        MERCER_LIST -> 0;
+        ECONOMIST_LIST -> 1;
+        MONOCLE_LIST -> 2;
+        else -> 0
     }
 
 }
