@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityranking.R
-import com.example.cityranking.SharedViewModel
 import com.example.cityranking.config.GlideApp
 import com.example.cityranking.data.City
 import com.example.cityranking.databinding.CityViewpagerItemBinding
@@ -19,7 +19,7 @@ import com.example.cityranking.utilities.Utils
  * Adapter used for ViewPager2s in Main Fragment.
  * Would also work with a RecyclerView
  */
-class ViewPagerAdapter(private val dataSource: String, private val viewModel: SharedViewModel) :
+class ViewPagerAdapter(private val dataSource: String) :
     RecyclerView.Adapter<ViewPagerAdapter.ViewHolder>() {
 
     var data = arrayListOf<City>()
@@ -32,10 +32,7 @@ class ViewPagerAdapter(private val dataSource: String, private val viewModel: Sh
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = CityViewpagerItemBinding.inflate(layoutInflater, parent, false)
-        return ViewHolder(
-            binding,
-            viewModel
-        )
+        return ViewHolder(binding)
     }
 
     override fun getItemCount() = data.size
@@ -45,7 +42,7 @@ class ViewPagerAdapter(private val dataSource: String, private val viewModel: Sh
         holder.bind(item, dataSource)
     }
 
-    class ViewHolder(binding: CityViewpagerItemBinding, val viewModel: SharedViewModel) :
+    class ViewHolder(binding: CityViewpagerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val root = binding.root
         private val title: TextView = binding.cityViewpagerItemName
@@ -63,10 +60,10 @@ class ViewPagerAdapter(private val dataSource: String, private val viewModel: Sh
                 .load(Utils.getImageRef(item.id, IMAGE_SIZE_SMALL))
                 .centerCrop()
                 .into(thumbnail)
+            val bundle = bundleOf("city" to item)
             root.setOnClickListener {
-                viewModel.setCity(item)
                 it.findNavController()
-                    .navigate(R.id.action_mainFragment_to_cityDetailsFragment)
+                    .navigate(R.id.action_mainFragment_to_cityDetailsFragment, bundle)
 
             }
         }

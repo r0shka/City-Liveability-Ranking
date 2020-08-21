@@ -42,7 +42,7 @@ class FullListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // get data source from Bundle (safe args)
         dataSource = args.dataSource
-        adapter = FullListAdapter(dataSource, sharedViewModel)
+        adapter = FullListAdapter(dataSource)
         adapter.data = arrayListOf()
         val recyclerView = binding.fullListRecyclerview
         recyclerView.adapter = adapter
@@ -134,8 +134,8 @@ class FullListFragment : Fragment() {
         if (toast == null)
             toast = Toast.makeText(context, text, Toast.LENGTH_SHORT)
         else
-            toast!!.setText(text)
-        toast!!.show()
+            toast?.setText(text)
+        toast?.show()
     }
 
 }

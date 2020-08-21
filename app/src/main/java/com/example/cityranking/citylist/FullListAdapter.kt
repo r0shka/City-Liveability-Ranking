@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityranking.R
@@ -18,9 +19,8 @@ import com.google.android.material.chip.Chip
 /**
  * Adapter for RecyclerView that displays full list of cities
  * @param dataSource name of the list from which cities are loaded
- * @param viewModel used for shared element to pass city information to details fragment
  */
-class FullListAdapter(private val dataSource: String, private val viewModel: SharedViewModel) :
+class FullListAdapter(private val dataSource: String) :
     RecyclerView.Adapter<FullListAdapter.ViewHolder>() {
 
     var data = arrayListOf<City>()
@@ -34,8 +34,7 @@ class FullListAdapter(private val dataSource: String, private val viewModel: Sha
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = CityListItemBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(
-            binding,
-            viewModel
+            binding
         )
     }
 
@@ -46,7 +45,7 @@ class FullListAdapter(private val dataSource: String, private val viewModel: Sha
         holder.bind(item, dataSource)
     }
 
-    class ViewHolder(binding: CityListItemBinding, val viewModel: SharedViewModel) :
+    class ViewHolder(binding: CityListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val root = binding.root
         private val title: TextView = binding.cityListItemName
@@ -68,10 +67,11 @@ class FullListAdapter(private val dataSource: String, private val viewModel: Sha
                 .load(Utils.getImageRef(item.id, IMAGE_SIZE_SMALL))
                 .centerCrop()
                 .into(thumbnail)
+            val bundle = bundleOf("city" to item)
             root.setOnClickListener {
-                viewModel.setCity(item)
+                //viewModel.setCity(item)
                 it.findNavController()
-                    .navigate(R.id.action_fullListFragment_to_cityDetailsFragment)
+                    .navigate(R.id.action_fullListFragment_to_cityDetailsFragment, bundle)
             }
         }
     }

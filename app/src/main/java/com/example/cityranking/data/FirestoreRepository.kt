@@ -8,8 +8,8 @@ import kotlinx.coroutines.tasks.await
 
 object FirestoreRepository {
 
-    val collectionPath = "cities-test5"
-    val db = Firebase.firestore
+    private const val collectionPath = "cities-test5"
+    private val db = Firebase.firestore
 
     suspend fun getMercerTop5Cities(): Resource<ArrayList<City>> {
         val result = db.collection(collectionPath)

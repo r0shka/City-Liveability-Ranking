@@ -9,13 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.cityranking.SharedViewModel
-import com.example.cityranking.data.City
-import com.example.cityranking.data.MainScreenSection
 import com.example.cityranking.data.Resource
 import com.example.cityranking.databinding.FragmentMainBinding
+import com.example.cityranking.mainscreen.list.CityRankSection
 import com.example.cityranking.utilities.ECONOMIST_LIST
 import com.example.cityranking.utilities.MERCER_LIST
 import com.example.cityranking.utilities.MONOCLE_LIST
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 
 class MainFragment : Fragment() {
 
@@ -24,6 +25,11 @@ class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    private val mainScreenAdapter = GroupAdapter<GroupieViewHolder>()
+    private lateinit var mercerSection: CityRankSection
+    private lateinit var economistSection: CityRankSection
+    private lateinit var monocleSection: CityRankSection
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,68 +42,45 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setMainScreenSections()
+        setObservers()
     }
 
     private fun setMainScreenSections() {
-        val adapter = MainScreenAdapter(sharedViewModel, requireContext())
-        val viewPager = binding.mainScreenSections
-        viewPager.adapter = adapter
-        sharedViewModel.getMercerTop5Cities.observe(viewLifecycleOwner, Observer {
-            createSegment(
-                "Mercer",
-                "Mercer's Quality of living city ranking",
-                MERCER_LIST,
-                it,
-                adapter
-            )
-        })
-        sharedViewModel.getEconomistTop5Cities.observe(viewLifecycleOwner, Observer {
-            createSegment(
-                "The Economist",
-                "The Economist's Global Liveability Index",
-                ECONOMIST_LIST,
-                it,
-                adapter
-            )
-        })
-        sharedViewModel.getMonocleTop5Cities.observe(viewLifecycleOwner, Observer {
-            createSegment(
-                "Monocle",
-                "Monocle: Quality of life survey",
-                MONOCLE_LIST,
-                it,
-                adapter
-            )
-        })
+        mercerSection = CityRankSection(
+            "Mercer",
+            "Mercer's Quality of living city ranking",
+            MERCER_LIST,
+            Resource.Loading()
+        )
+        economistSection = CityRankSection(
+            "The Economist",
+            "The Economist's Global Liveability Index",
+            ECONOMIST_LIST,
+            Resource.Loading()
+        )
+        monocleSection = CityRankSection(
+            "Monocle",
+            "Monocle: Quality of life survey",
+            MONOCLE_LIST,
+            Resource.Loading()
+        )
+
+        mainScreenAdapter.update(listOf(mercerSection, economistSection, monocleSection))
+        binding.mainScreenSections.run {
+            adapter = mainScreenAdapter
+        }
     }
 
-    private fun createSegment(
-        title: String,
-        description: String,
-        dataSource: String,
-        resource: Resource<ArrayList<City>>,
-        adapter: MainScreenAdapter
-    ) {
-        when (resource) {
-            // toasts should eventually be replaced with something more fancy
-            is Resource.Loading<*> -> {
-                showToast("Loading...")
-            }
-            is Resource.Success<*> -> {
-                adapter.data.add(
-                    MainScreenSection(
-                        title,
-                        description,
-                        dataSource,
-                        carouselItems = resource.data as ArrayList<City>
-                    )
-                )
-                adapter.notifyDataSetChanged()
-            }
-            is Resource.Failure<*> -> {
-                showToast("An error has ocurred:${resource.throwable.message}")
-            }
-        }
+    private fun setObservers() {
+        sharedViewModel.getMercerTop5Cities.observe(viewLifecycleOwner, Observer {
+            mercerSection.update(it)
+        })
+        sharedViewModel.getEconomistTop5Cities.observe(viewLifecycleOwner, Observer {
+            economistSection.update(it)
+        })
+        sharedViewModel.getMonocleTop5Cities.observe(viewLifecycleOwner, Observer {
+            monocleSection.update(it)
+        })
     }
 
     /**
@@ -117,16 +100,6 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    /**
-     * Display main screen sections in particular order
-     */
-    private fun getSectionPosition(dataSource: String): Int = when (dataSource) {
-        MERCER_LIST -> 0;
-        ECONOMIST_LIST -> 1;
-        MONOCLE_LIST -> 2;
-        else -> 0
     }
 
 }
