@@ -113,7 +113,7 @@ object FirestoreRepository {
 
     suspend fun getMostVisitedTop10Cities(): Resource<ArrayList<City>> {
         val result = db.collection(collectionPath)
-            .orderBy("mostVisited.$QS_LATEST_DATA_YEAR", Query.Direction.DESCENDING)
+            .orderBy("mostVisited.$MOST_VISITED_LATEST_DATA_YEAR", Query.Direction.DESCENDING)
             .limit(10)
             .get()
             .await()

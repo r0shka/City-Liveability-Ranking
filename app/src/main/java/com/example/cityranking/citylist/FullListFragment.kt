@@ -1,6 +1,7 @@
 package com.example.cityranking.citylist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,6 +96,7 @@ class FullListFragment : Fragment() {
     }
 
     private fun setMostVisitedData() {
+        Log.i("varvar", "setMostVisitedData")
         sharedViewModel.getMostVisitedTop10Cities.observe(viewLifecycleOwner, Observer {
             setAdapterData(it)
         })
@@ -116,6 +118,7 @@ class FullListFragment : Fragment() {
      * @param resource state of query and data
      */
     private fun setAdapterData(resource: Resource<ArrayList<City>>) {
+        Log.i("varvar", "setAdapterData, res="+resource.toString())
         when (resource) {
             // toasts should eventually be replaced with something more fancy
             is Resource.Loading<*> -> showToast("Loading...")

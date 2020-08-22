@@ -20,3 +20,5 @@ const val MONOCLE_LATEST_DATA_YEAR = "2019"
 const val NUMBEO_LATEST_DATA_YEAR = "2019"
 const val QS_LATEST_DATA_YEAR = "2019"
 const val MOST_VISITED_LATEST_DATA_YEAR = "2018"
+
+const val LOADING_ITEM = "loading_item"

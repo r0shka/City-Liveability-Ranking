@@ -4,7 +4,7 @@ import com.example.cityranking.data.City
 import com.example.cityranking.data.Resource
 import com.xwray.groupie.Section
 
-class CityRankSection(
+class CityRankCarouselSection(
     private val title: String,
     private val description: String,
     private val dataSource: String,
@@ -16,7 +16,7 @@ class CityRankSection(
             is Resource.Success<*> -> {
                 update(
                     listOf(
-                        CityRankSectionItem(
+                        CityRankCarouselItem(
                             title,
                             description,
                             dataSource,
@@ -26,7 +26,16 @@ class CityRankSection(
                 )
             }
             is Resource.Loading<*> -> {
-                // TODO show loading item
+                update(
+                    listOf(
+                        CityRankCarouselItem(
+                            title,
+                            description,
+                            dataSource,
+                            ArrayList()
+                        )
+                    )
+                )
             }
             is Resource.Failure<*> -> {
                 // TODO show error item

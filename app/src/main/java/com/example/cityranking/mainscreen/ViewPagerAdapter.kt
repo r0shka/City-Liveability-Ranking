@@ -1,6 +1,7 @@
 package com.example.cityranking.mainscreen
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,6 +13,7 @@ import com.example.cityranking.config.GlideApp
 import com.example.cityranking.data.City
 import com.example.cityranking.databinding.CityViewpagerItemBinding
 import com.example.cityranking.utilities.IMAGE_SIZE_SMALL
+import com.example.cityranking.utilities.LOADING_ITEM
 import com.example.cityranking.utilities.Utils
 
 
@@ -48,23 +50,32 @@ class ViewPagerAdapter(private val dataSource: String) :
         private val title: TextView = binding.cityViewpagerItemName
         private val thumbnail: ImageView = binding.cityViewpagerItemImage
         private val rank: TextView = binding.cityViewpagerItemRank
+        private val gradientBackground = binding.cityViewpagerItemGradient
+        private val rankBackground = binding.cityViewpagerItemRankBackground
 
         /**
          * Binds data to UI
          */
         fun bind(item: City, listName: String) {
-            title.text = item.name
-            rank.text = Utils.getCityRank(item, listName).toString()
-            // downloads and injects image into view with FirebaseUI for Storage
-            GlideApp.with(thumbnail.context)
-                .load(Utils.getImageRef(item.id, IMAGE_SIZE_SMALL))
-                .centerCrop()
-                .into(thumbnail)
-            val bundle = bundleOf("city" to item)
-            root.setOnClickListener {
-                it.findNavController()
-                    .navigate(R.id.action_mainFragment_to_cityDetailsFragment, bundle)
+            if (item.name != LOADING_ITEM) {
+                title.text = item.name
+                rank.text = Utils.getCityRank(item, listName).toString()
+                // downloads and injects image into view with FirebaseUI for Storage
+                GlideApp.with(thumbnail.context)
+                    .load(Utils.getImageRef(item.id, IMAGE_SIZE_SMALL))
+                    .centerCrop()
+                    .into(thumbnail)
+                val bundle = bundleOf("city" to item)
+                root.setOnClickListener {
+                    it.findNavController()
+                        .navigate(R.id.action_mainFragment_to_cityDetailsFragment, bundle)
 
+                }
+                gradientBackground.visibility = View.VISIBLE
+                rankBackground.visibility = View.VISIBLE
+            } else {
+                gradientBackground.visibility = View.GONE
+                rankBackground.visibility = View.GONE
             }
         }
     }

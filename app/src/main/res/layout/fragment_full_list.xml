@@ -21,6 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="5"
-        tools:listitem="@layout/city_list_item" />
+        tools:listitem="@layout/city_full_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

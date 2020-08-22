@@ -11,10 +11,12 @@ import androidx.lifecycle.Observer
 import com.example.cityranking.SharedViewModel
 import com.example.cityranking.data.Resource
 import com.example.cityranking.databinding.FragmentMainBinding
-import com.example.cityranking.mainscreen.list.CityRankSection
+import com.example.cityranking.mainscreen.list.CityRankCardSection
+import com.example.cityranking.mainscreen.list.CityRankCarouselSection
 import com.example.cityranking.utilities.ECONOMIST_LIST
 import com.example.cityranking.utilities.MERCER_LIST
 import com.example.cityranking.utilities.MONOCLE_LIST
+import com.example.cityranking.utilities.MOST_VISITED_LIST
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -27,9 +29,9 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mainScreenAdapter = GroupAdapter<GroupieViewHolder>()
-    private lateinit var mercerSection: CityRankSection
-    private lateinit var economistSection: CityRankSection
-    private lateinit var monocleSection: CityRankSection
+    private lateinit var mercerSection: CityRankCarouselSection
+    private lateinit var economistSection: CityRankCarouselSection
+    private lateinit var monocleSection: CityRankCarouselSection
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,26 +48,31 @@ class MainFragment : Fragment() {
     }
 
     private fun setMainScreenSections() {
-        mercerSection = CityRankSection(
+        mercerSection = CityRankCarouselSection(
             "Mercer",
             "Mercer's Quality of living city ranking",
             MERCER_LIST,
             Resource.Loading()
         )
-        economistSection = CityRankSection(
+        economistSection = CityRankCarouselSection(
             "The Economist",
             "The Economist's Global Liveability Index",
             ECONOMIST_LIST,
             Resource.Loading()
         )
-        monocleSection = CityRankSection(
+        monocleSection = CityRankCarouselSection(
             "Monocle",
             "Monocle: Quality of life survey",
             MONOCLE_LIST,
             Resource.Loading()
         )
 
-        mainScreenAdapter.update(listOf(mercerSection, economistSection, monocleSection))
+        mainScreenAdapter.update(listOf(
+            mercerSection,
+            CityRankCardSection("Most visited cities", MOST_VISITED_LIST),
+            economistSection,
+            monocleSection
+        ))
         binding.mainScreenSections.run {
             adapter = mainScreenAdapter
         }

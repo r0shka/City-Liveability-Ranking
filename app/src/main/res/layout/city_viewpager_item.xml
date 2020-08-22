@@ -15,16 +15,17 @@
         android:layout_width="match_parent"
         android:layout_height="150dp">
 
-
         <ImageView
             android:id="@+id/city_viewpager_item_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_placeholder"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <View
+            android:id="@+id/city_viewpager_item_gradient"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="@drawable/city_viewpager_item_gradient_bg" />
@@ -42,6 +43,7 @@
             tools:text="City name" />
 
         <View
+            android:id="@+id/city_viewpager_item_rank_background"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@drawable/ic_rounded"
@@ -53,12 +55,12 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:gravity="center"
-            android:text="22"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_anchor="@id/city_viewpager_item_image"
-            app:layout_anchorGravity="top|end" />
+            app:layout_anchorGravity="top|end"
+            tools:text="22" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

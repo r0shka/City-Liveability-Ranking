@@ -47,21 +47,26 @@
             app:layout_anchorGravity="center"
             tools:text="City name" />
 
+        <View
+            android:id="@+id/city_list_item_rank_background"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/ic_rounded"
+            app:layout_anchor="@id/city_list_item_image"
+            app:layout_anchorGravity="top|end" />
+
 
         <TextView
             android:id="@+id/city_list_item_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_rounded"
-            android:gravity="top|end"
-            android:paddingTop="@dimen/medium_padding"
-            android:paddingEnd="@dimen/medium_padding"
-            android:text="22"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_anchor="@id/city_list_item_image"
-            app:layout_anchorGravity="top|end" />
+            app:layout_anchorGravity="top|end"
+            tools:text="22" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/city_list_item_country"

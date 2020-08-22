@@ -8,11 +8,11 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityranking.R
-import com.example.cityranking.SharedViewModel
 import com.example.cityranking.config.GlideApp
 import com.example.cityranking.data.City
-import com.example.cityranking.databinding.CityListItemBinding
+import com.example.cityranking.databinding.CityFullListItemBinding
 import com.example.cityranking.utilities.IMAGE_SIZE_SMALL
+import com.example.cityranking.utilities.MOST_VISITED_LIST
 import com.example.cityranking.utilities.Utils
 import com.google.android.material.chip.Chip
 
@@ -32,7 +32,7 @@ class FullListAdapter(private val dataSource: String) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = CityListItemBinding.inflate(layoutInflater, parent, false)
+        val binding = CityFullListItemBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(
             binding
         )
@@ -42,10 +42,10 @@ class FullListAdapter(private val dataSource: String) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.bind(item, dataSource)
+        holder.bind(item, dataSource, position)
     }
 
-    class ViewHolder(binding: CityListItemBinding) :
+    class ViewHolder(binding: CityFullListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val root = binding.root
         private val title: TextView = binding.cityListItemName
@@ -57,9 +57,13 @@ class FullListAdapter(private val dataSource: String) :
         /**
          * Binds data to UI
          */
-        fun bind(item: City, dataSource: String) {
+        fun bind(item: City, dataSource: String, position: Int) {
             title.text = "${item.name}"
-            rank.text = Utils.getCityRank(item, dataSource).toString()
+            if(dataSource == MOST_VISITED_LIST) {
+                rank.text = (position+1).toString()
+            } else {
+                rank.text = Utils.getCityRank(item, dataSource).toString()
+            }
             country.text = "${item.country}"
             population.text = String.format("%,8d%n", item.population)
             // downloads and injects image into view with FirebaseUI
