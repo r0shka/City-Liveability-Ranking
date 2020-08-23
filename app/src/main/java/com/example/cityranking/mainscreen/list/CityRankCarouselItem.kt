@@ -8,7 +8,6 @@ import com.example.cityranking.databinding.CityRankCarouselItemBinding
 import com.example.cityranking.mainscreen.MainFragmentDirections
 import com.example.cityranking.mainscreen.ViewPagerAdapter
 import com.example.cityranking.utilities.LOADING_ITEM
-import com.example.cityranking.utilities.Utils
 import com.xwray.groupie.Item
 import com.xwray.groupie.viewbinding.BindableItem
 
@@ -20,20 +19,19 @@ class CityRankCarouselItem(
 ) : BindableItem<CityRankCarouselItemBinding>() {
 
     override fun bind(viewBinding: CityRankCarouselItemBinding, position: Int) {
-        viewBinding.sectionItemTitle.text = title
-        viewBinding.sectionItemDescription.text = description
-        viewBinding.sectionItemSeeMore.setOnClickListener {
+        viewBinding.carouselItem.setCarouselTitle(title)
+        viewBinding.carouselItem.setCarouselDescription(description)
+        viewBinding.carouselItem.setClickListener(View.OnClickListener {
             val action =
                 MainFragmentDirections.actionMainFragmentToFullListFragment(dataSource)
             it.findNavController().navigate(action)
-        }
-        Utils.setupViewPagerAnimation(viewBinding.sectionItemViewPager, viewBinding.root.context)
+        })
         val adapter = ViewPagerAdapter(dataSource)
-        if(data.isEmpty()){
+        if (data.isEmpty()) {
             data.add(City(LOADING_ITEM))
         }
         adapter.data = data
-        viewBinding.sectionItemViewPager.adapter = adapter
+        viewBinding.carouselItem.setAdapter(adapter)
 
     }
 
