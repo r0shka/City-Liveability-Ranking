@@ -21,20 +21,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
-        <TextView
-            android:id="@+id/city_details_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_rounded"
-            android:gravity="top|end"
-            android:paddingTop="8dp"
-            android:paddingEnd="8dp"
-            android:text="21"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/city_details_name"
@@ -43,6 +29,14 @@
             android:text="TextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/city_details_thumbnail" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/city_details_chart"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/city_details_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
