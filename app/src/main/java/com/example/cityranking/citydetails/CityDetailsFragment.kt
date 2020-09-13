@@ -52,12 +52,16 @@ class CityDetailsFragment : Fragment() {
 
     private fun setupChart() {
         city_details_chart.setViewPortOffsets(0F, 0F, 0F, 0F);
-        city_details_chart.setBackgroundColor(Color.rgb(31, 128, 255));
+        city_details_chart.setBackgroundColor(Color.rgb(190, 180, 255));
         city_details_chart.description.isEnabled = false
         city_details_chart.setTouchEnabled(false)
         city_details_chart.isDragEnabled = false
         city_details_chart.setScaleEnabled(false)
         city_details_chart.setPinchZoom(false)
+        city_details_chart.axisLeft.isInverted = true
+        city_details_chart.axisLeft.setDrawGridLines(false)
+        city_details_chart.axisRight.setDrawGridLines(false)
+        city_details_chart.xAxis.setDrawGridLines(false)
         city_details_chart.setDrawGridBackground(false)
         city_details_chart.legend.isEnabled = false
         city_details_chart.animateY(1000)
@@ -135,14 +139,14 @@ class CityDetailsFragment : Fragment() {
             set1.mode = LineDataSet.Mode.CUBIC_BEZIER
             set1.cubicIntensity = 0.2f
             set1.setDrawFilled(true)
-            set1.setDrawCircles(false)
+            set1.setDrawCircles(true)
             set1.lineWidth = 1.8f
             set1.circleRadius = 4f
-            set1.setCircleColor(Color.WHITE)
-            set1.highLightColor = Color.rgb(244, 117, 117)
-            set1.color = Color.WHITE
-            set1.fillColor = Color.WHITE
-            set1.fillAlpha = 100
+            set1.setCircleColor(Color.rgb(90, 50, 255))
+            set1.highLightColor = Color.rgb(0, 255, 0)
+            set1.color = Color.rgb(90, 50, 255)
+            set1.fillColor = Color.rgb(255, 255, 255)
+            set1.fillAlpha = 255
             set1.setDrawHorizontalHighlightIndicator(true)
             set1.fillFormatter =
                 IFillFormatter { dataSet, dataProvider ->
