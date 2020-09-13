@@ -24,7 +24,7 @@ data class City(
     val trafficCongestion: Int? = null,
     val uhnwPopulation: Int? = null,
     val vacationDaysYear: Double? = null,
-    val mercer: Map<String?, Int?>? = null,
+    val mercer: Map<String, Int>? = null,
     val eiu: Map<String?, Int?>? = null,
     val monocle: Map<String?, Int?>? = null,
     val numbeo: Map<String?, Int?>? = null,
