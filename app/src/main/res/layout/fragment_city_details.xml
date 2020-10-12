@@ -12,7 +12,7 @@
 
 
         <ImageView
-            android:id="@+id/city_details_thumbnail"
+            android:id="@+id/cityDetailsThumbnail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -21,28 +21,42 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
-        <TextView
-            android:id="@+id/city_details_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_rounded"
-            android:gravity="top|end"
-            android:paddingTop="8dp"
-            android:paddingEnd="8dp"
-            android:text="21"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/city_details_name"
+            android:id="@+id/cityDetailsName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/city_details_thumbnail" />
+            app:layout_constraintTop_toBottomOf="@+id/cityDetailsThumbnail" />
+
+        <HorizontalScrollView
+            android:id="@+id/chipGroupScrollContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scrollbars="none"
+            android:paddingStart="@dimen/medium_padding"
+            android:paddingEnd="@dimen/medium_padding"
+            app:layout_constraintTop_toBottomOf="@id/cityDetailsName">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                app:selectionRequired="true"
+                app:singleSelection="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </HorizontalScrollView>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/city_details_chart"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipGroupScrollContainer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

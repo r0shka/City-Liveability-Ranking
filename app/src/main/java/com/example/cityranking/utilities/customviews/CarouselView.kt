@@ -43,26 +43,18 @@ class CarouselView(context: Context, attrs: AttributeSet) : ConstraintLayout(con
 
     fun setCarouselTitle(text: String) {
         carousel_title.text = text
-        invalidate()
-        requestLayout()
     }
 
     fun setCarouselDescription(text: String) {
         carousel_description.text = text
-        invalidate()
-        requestLayout()
     }
 
     fun setAdapter(adapter: ViewPagerAdapter) {
         carousel_view_pager.adapter = adapter
-        invalidate()
-        requestLayout()
     }
 
     fun setClickListener(onClickListener: OnClickListener) {
         carousel_see_more_button.setOnClickListener(onClickListener)
-        invalidate()
-        requestLayout()
     }
 
 }

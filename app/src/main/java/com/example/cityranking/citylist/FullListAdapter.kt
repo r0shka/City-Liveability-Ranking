@@ -73,7 +73,6 @@ class FullListAdapter(private val dataSource: String) :
                 .into(thumbnail)
             val bundle = bundleOf("city" to item)
             root.setOnClickListener {
-                //viewModel.setCity(item)
                 it.findNavController()
                     .navigate(R.id.action_fullListFragment_to_cityDetailsFragment, bundle)
             }
